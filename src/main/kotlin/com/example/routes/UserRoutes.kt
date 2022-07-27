@@ -12,12 +12,16 @@ fun Route.userRoutes(){
         get("{id}") {
             val id = call.parameters["id"]?.toIntOrNull() ?:
             return@get call.respondText(HttpStatusCode.NotAcceptable.description, status = HttpStatusCode.NotAcceptable)
+
             val user = getUser(id)
                 ?: return@get call.respondText(HttpStatusCode.NotFound.description, status = HttpStatusCode.NotFound)
 
             call.respond(user)
         }
-        get("/"){
+
+    }
+    route("/users"){
+        get{
             call.respond(getUsers())
         }
     }
